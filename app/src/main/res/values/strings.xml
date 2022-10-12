@@ -1,4 +1,13 @@
 <resources>
     <string name="app_name">I-MOBV_Projekt</string>
     <string name="serve">Serve</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="enter_details">Enter details:</string>
+    <string name="enter_drink_name">Enter drink name</string>
+    <string name="enter_pub_name">Enter pub name</string>
+    <string name="enter_latitude">Enter latitude</string>
+    <string name="enter_longitude">Enter longitude</string>
+    <string name="submit">SUBMIT</string>
+    <string name="show_on_map">Show on map</string>
 </resources>

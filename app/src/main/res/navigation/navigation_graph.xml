@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graph"
+    app:startDestination="@id/settingsFragment">
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="sk.stuba.fei.i_mobv_projekt.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/action_settingsFragment_to_fragmentPub"
+            app:destination="@id/fragmentPub" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentPub"
+        android:name="sk.stuba.fei.i_mobv_projekt.FragmentPub"
+        android:label="fragment_pub"
+        tools:layout="@layout/fragment_pub" >
+        <argument
+            android:name="drinkName"
+            app:argType="string" />
+        <argument
+            android:name="pubName"
+            app:argType="string" />
+        <argument
+            android:name="latitude"
+            app:argType="string" />
+        <argument
+            android:name="longitude"
+            app:argType="string" />
+    </fragment>
+</navigation>
