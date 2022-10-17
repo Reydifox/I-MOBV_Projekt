@@ -11,8 +11,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import android.widget.Button
 import androidx.annotation.RawRes
+import androidx.navigation.findNavController
 import com.google.gson.Gson
+import sk.stuba.fei.i_mobv_projekt.databinding.FragmentItemBinding
+import sk.stuba.fei.i_mobv_projekt.databinding.FragmentPubBinding
 import sk.stuba.fei.i_mobv_projekt.parser.PubExtension
 import sk.stuba.fei.i_mobv_projekt.placeholder.PlaceholderContent
 
@@ -49,6 +53,13 @@ class ItemFragment : Fragment(), MyItemRecyclerViewAdapter.OnItemClickListener {
             PlaceholderContent.parseData(data)
             adapter = MyItemRecyclerViewAdapter(PlaceholderContent.ITEMS)
         }
+
+        // Add new item
+        val button = view.findViewById<Button>(R.id.button_add)
+        button.setOnClickListener {
+            val fragmentDirections = ItemFragmentDirections.actionItemFragmentToSettingsFragment()
+            view.findNavController().navigate(fragmentDirections)
+        }
         return view
     }
 
@@ -56,6 +67,7 @@ class ItemFragment : Fragment(), MyItemRecyclerViewAdapter.OnItemClickListener {
         openRawResource(id).bufferedReader().use { it.readText() }
 
     override fun onItemClick(item: PlaceholderContent.PlaceholderItem) {
+        // TODO FIX
         Log.d("tag", "Item clicked: $item")
         println("ITEM CLICKED")
     }

@@ -46,7 +46,7 @@ object PlaceholderContent {
     }
 
     private fun createPlaceholderItem(position: Int): PlaceholderItem {
-        val tags = PubTags("", "test", "", "", "extemeshop.com")
+        val tags = PubTags("", "test", "", "", "extemeshop.com", "+42112345699")
         val pub = PubModel(position.toString(), "", "", tags)
         return PlaceholderItem(pub)
     }

@@ -8,7 +8,6 @@ import androidx.navigation.findNavController
 
 import sk.stuba.fei.i_mobv_projekt.placeholder.PlaceholderContent.PlaceholderItem
 import sk.stuba.fei.i_mobv_projekt.databinding.FragmentItemBinding
-import sk.stuba.fei.i_mobv_projekt.databinding.FragmentPubBinding
 
 /**
  * [RecyclerView.Adapter] that can display a [PlaceholderItem].
@@ -18,18 +17,15 @@ class MyItemRecyclerViewAdapter(
     private val values: List<PlaceholderItem>
 ) : RecyclerView.Adapter<MyItemRecyclerViewAdapter.ViewHolder>() {
     var onItemClickListener: OnItemClickListener? = null
-    private lateinit var binding: FragmentPubBinding
+    private lateinit var binding: FragmentItemBinding
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-
-        return ViewHolder(
-            FragmentItemBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
+        binding = FragmentItemBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
         )
-
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -56,7 +52,8 @@ class MyItemRecyclerViewAdapter(
 
     private fun openDetailsFragment(item : PlaceholderItem)
     {
-        val fragmentDirections = SettingsFragmentDirections.actionSettingsFragmentToFragmentPub("test", item.data.tags.name, item.data.lat, item.data.lon)
+        val data = item.data
+        val fragmentDirections = ItemFragmentDirections.actionItemFragmentToPubInfoFragment(data.tags.name, data.lat, data.lon, data.tags.website, data.tags.amenity, data.tags.opening_hours, data.tags.phone)
         binding.root.findNavController().navigate(fragmentDirections)
     }
 

@@ -38,10 +38,40 @@
         android:label="fragment_item_list"
         tools:layout="@layout/fragment_item_list">
         <action
-            android:id="@+id/action_itemFragment_to_fragmentPub"
-            app:destination="@id/fragmentPub" />
-        <action
             android:id="@+id/action_itemFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_itemFragment_to_pubInfoFragment"
+            app:destination="@id/pubInfoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/pubInfoFragment"
+        android:name="sk.stuba.fei.i_mobv_projekt.PubInfoFragment"
+        android:label="fragment_pub_info"
+        tools:layout="@layout/fragment_pub_info" >
+        <argument
+            android:name="name"
+            app:argType="string" />
+        <argument
+            android:name="latitude"
+            app:argType="string" />
+        <argument android:name="longitude"
+            app:argType="string" />
+        <argument
+            android:name="website"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="amenity"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="openingHours"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="phone"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
 </navigation>

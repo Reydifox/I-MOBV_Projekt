@@ -25,8 +25,10 @@ data class PubTags (
     var name: String,
     @SerializedName("opening_hours", alternate = ["opening_hours:covid19"])
     var opening_hours: String,
-    @SerializedName("operator")
+    @SerializedName("operator", alternate = ["operator:no operator"])
     var operator: String,
-    @SerializedName("website")
-    var website: String
+    @SerializedName("website", alternate = ["website:no website"])
+    var website: String,
+    @SerializedName("phone", alternate = ["phone:no phone"])
+    var phone: String
 )

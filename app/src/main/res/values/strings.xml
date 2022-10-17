@@ -14,4 +14,7 @@
     <string name="add">ADD</string>
     <string name="ascending">ASC</string>
     <string name="descending">DSC</string>
+    <string name="contact_info">Contact info:</string>
+    <string name="details">Details:</string>
+    <string name="opening_hours">Opening Hours:</string>
 </resources>
