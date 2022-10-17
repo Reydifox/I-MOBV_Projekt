@@ -17,6 +17,7 @@ import androidx.navigation.findNavController
 import com.google.gson.Gson
 import sk.stuba.fei.i_mobv_projekt.databinding.FragmentItemBinding
 import sk.stuba.fei.i_mobv_projekt.databinding.FragmentPubBinding
+import sk.stuba.fei.i_mobv_projekt.databinding.FragmentPubInfoBinding
 import sk.stuba.fei.i_mobv_projekt.parser.PubExtension
 import sk.stuba.fei.i_mobv_projekt.placeholder.PlaceholderContent
 
@@ -26,6 +27,7 @@ import sk.stuba.fei.i_mobv_projekt.placeholder.PlaceholderContent
 class ItemFragment : Fragment(), MyItemRecyclerViewAdapter.OnItemClickListener {
 
     private var columnCount = 1
+    private lateinit var _adapter : MyItemRecyclerViewAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,13 +54,28 @@ class ItemFragment : Fragment(), MyItemRecyclerViewAdapter.OnItemClickListener {
             val data = Gson().fromJson(json, PubExtension::class.java)
             PlaceholderContent.parseData(data)
             adapter = MyItemRecyclerViewAdapter(PlaceholderContent.ITEMS)
+            _adapter = adapter as MyItemRecyclerViewAdapter
         }
 
         // Add new item
-        val button = view.findViewById<Button>(R.id.button_add)
-        button.setOnClickListener {
+        val buttonAdd = view.findViewById<Button>(R.id.button_add)
+        buttonAdd.setOnClickListener {
             val fragmentDirections = ItemFragmentDirections.actionItemFragmentToSettingsFragment()
             view.findNavController().navigate(fragmentDirections)
+        }
+
+        // Sort ascending
+        val buttonAsc = view.findViewById<Button>(R.id.button_ascending)
+        buttonAsc.setOnClickListener {
+            _adapter.sort(false)
+            _adapter.notifyDataSetChanged()
+        }
+
+        // Sort descending
+        val buttonDsc = view.findViewById<Button>(R.id.button_descending)
+        buttonDsc.setOnClickListener {
+            _adapter.sort(true)
+            _adapter.notifyDataSetChanged()
         }
         return view
     }
