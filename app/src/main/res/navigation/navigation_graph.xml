@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph"
-    app:startDestination="@id/settingsFragment">
+    app:startDestination="@id/itemFragment">
 
     <fragment
         android:id="@+id/settingsFragment"
         android:name="sk.stuba.fei.i_mobv_projekt.SettingsFragment"
         android:label="fragment_settings"
-        tools:layout="@layout/fragment_settings" >
+        tools:layout="@layout/fragment_settings">
         <action
             android:id="@+id/action_settingsFragment_to_fragmentPub"
             app:destination="@id/fragmentPub" />
@@ -18,7 +18,7 @@
         android:id="@+id/fragmentPub"
         android:name="sk.stuba.fei.i_mobv_projekt.FragmentPub"
         android:label="fragment_pub"
-        tools:layout="@layout/fragment_pub" >
+        tools:layout="@layout/fragment_pub">
         <argument
             android:name="drinkName"
             app:argType="string" />
@@ -31,5 +31,17 @@
         <argument
             android:name="longitude"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/itemFragment"
+        android:name="sk.stuba.fei.i_mobv_projekt.ItemFragment"
+        android:label="fragment_item_list"
+        tools:layout="@layout/fragment_item_list">
+        <action
+            android:id="@+id/action_itemFragment_to_fragmentPub"
+            app:destination="@id/fragmentPub" />
+        <action
+            android:id="@+id/action_itemFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </fragment>
 </navigation>
