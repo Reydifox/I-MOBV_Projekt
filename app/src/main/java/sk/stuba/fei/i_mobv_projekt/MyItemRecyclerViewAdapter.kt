@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.navigation.findNavController
 
 import sk.stuba.fei.i_mobv_projekt.placeholder.PlaceholderContent.PlaceholderItem
@@ -43,7 +44,7 @@ class MyItemRecyclerViewAdapter(
             openDetailsFragment(item)
         }
 
-        binding.buttonDelete.setOnClickListener { remove(item) }
+//        binding.buttonDelete.setOnClickListener { remove(item) }
     }
 
     override fun getItemCount(): Int = values.size
@@ -61,7 +62,7 @@ class MyItemRecyclerViewAdapter(
     {
         if (descending)
         {
-            values.sortBy { it.data.tags.name }
+            values.sortByDescending { it.data.tags.name }
         }
         else {
             values.sortBy { it.data.tags.name }
@@ -75,10 +76,18 @@ class MyItemRecyclerViewAdapter(
         notifyDataSetChanged()
     }
 
+    fun removeById(id : String)
+    {
+        val item = values.firstOrNull { it.data.id == id }
+        values.remove(item)
+        notifyDataSetChanged()
+        println("Item with name: " + item?.data?.tags?.name + " has been removed!")
+    }
+
     private fun openDetailsFragment(item : PlaceholderItem)
     {
         val data = item.data
-        val fragmentDirections = ItemFragmentDirections.actionItemFragmentToPubInfoFragment(data.tags.name, data.lat, data.lon, data.tags.website, data.tags.amenity, data.tags.opening_hours, data.tags.phone)
+        val fragmentDirections = ItemFragmentDirections.actionItemFragmentToPubInfoFragment(data.tags.name, data.lat, data.lon, data.tags.website, data.tags.amenity, data.tags.opening_hours, data.tags.phone, data.id)
         binding.root.findNavController().navigate(fragmentDirections)
     }
 

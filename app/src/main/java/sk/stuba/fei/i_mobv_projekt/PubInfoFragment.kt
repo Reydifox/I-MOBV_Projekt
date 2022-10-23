@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import sk.stuba.fei.i_mobv_projekt.databinding.FragmentPubInfoBinding
 
@@ -26,6 +27,7 @@ class PubInfoFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentPubInfoBinding.inflate(inflater, container, false)
         binding.buttonMap.setOnClickListener { showMap() }
+        binding.buttonDelete.setOnClickListener { deleteItem() }
         setText()
         return binding.root
     }
@@ -44,7 +46,14 @@ class PubInfoFragment : Fragment() {
 
     private fun showMap()
     {
-        val intent : Intent = Intent(Intent.ACTION_VIEW, Uri.parse("geo:${args.latitude},${args.longitude}"))
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("geo:${args.latitude},${args.longitude}"))
         startActivity(intent)
+    }
+
+    private fun deleteItem()
+    {
+        ItemAdapter.removeById(args.itemID)
+        val fragmentDirections = PubInfoFragmentDirections.actionPubInfoFragmentToItemFragment()
+        binding.root.findNavController().navigate(fragmentDirections)
     }
 }

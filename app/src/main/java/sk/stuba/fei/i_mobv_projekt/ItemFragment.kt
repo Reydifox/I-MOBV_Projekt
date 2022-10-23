@@ -24,10 +24,10 @@ import sk.stuba.fei.i_mobv_projekt.placeholder.PlaceholderContent
 /**
  * A fragment representing a list of Items.
  */
+lateinit var ItemAdapter : MyItemRecyclerViewAdapter
 class ItemFragment : Fragment(), MyItemRecyclerViewAdapter.OnItemClickListener {
 
     private var columnCount = 1
-    private lateinit var _adapter : MyItemRecyclerViewAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,7 +54,7 @@ class ItemFragment : Fragment(), MyItemRecyclerViewAdapter.OnItemClickListener {
             val data = Gson().fromJson(json, PubExtension::class.java)
             PlaceholderContent.parseData(data)
             adapter = MyItemRecyclerViewAdapter(PlaceholderContent.ITEMS)
-            _adapter = adapter as MyItemRecyclerViewAdapter
+            ItemAdapter = adapter as MyItemRecyclerViewAdapter
         }
 
         // Add new item
@@ -67,15 +67,15 @@ class ItemFragment : Fragment(), MyItemRecyclerViewAdapter.OnItemClickListener {
         // Sort ascending
         val buttonAsc = view.findViewById<Button>(R.id.button_ascending)
         buttonAsc.setOnClickListener {
-            _adapter.sort(false)
-            _adapter.notifyDataSetChanged()
+            ItemAdapter.sort(false)
+            ItemAdapter.notifyDataSetChanged()
         }
 
         // Sort descending
         val buttonDsc = view.findViewById<Button>(R.id.button_descending)
         buttonDsc.setOnClickListener {
-            _adapter.sort(true)
-            _adapter.notifyDataSetChanged()
+            ItemAdapter.sort(true)
+            ItemAdapter.notifyDataSetChanged()
         }
         return view
     }

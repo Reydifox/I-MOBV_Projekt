@@ -73,5 +73,11 @@
             android:name="phone"
             app:argType="string"
             app:nullable="true" />
+        <action
+            android:id="@+id/action_pubInfoFragment_to_itemFragment"
+            app:destination="@id/itemFragment" />
+        <argument
+            android:name="itemID"
+            app:argType="string" />
     </fragment>
 </navigation>
