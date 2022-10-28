@@ -1,4 +1,4 @@
-package sk.stuba.fei.i_mobv_projekt
+package sk.stuba.fei.i_mobv_projekt.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
-import sk.stuba.fei.i_mobv_projekt.databinding.FragmentPubBinding
+import sk.stuba.fei.i_mobv_projekt.R
 import sk.stuba.fei.i_mobv_projekt.databinding.FragmentSettingsBinding
 
 /**

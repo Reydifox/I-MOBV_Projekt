@@ -1,4 +1,4 @@
-package sk.stuba.fei.i_mobv_projekt
+package sk.stuba.fei.i_mobv_projekt.fragment
 
 import android.content.Intent
 import android.net.Uri

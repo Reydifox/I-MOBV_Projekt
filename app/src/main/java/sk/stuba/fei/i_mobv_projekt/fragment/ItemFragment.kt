@@ -1,4 +1,4 @@
-package sk.stuba.fei.i_mobv_projekt
+package sk.stuba.fei.i_mobv_projekt.fragment
 
 import android.content.res.Resources
 import android.os.Bundle
@@ -10,14 +10,17 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.Button
 import androidx.annotation.RawRes
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.google.gson.Gson
-import sk.stuba.fei.i_mobv_projekt.databinding.FragmentItemBinding
-import sk.stuba.fei.i_mobv_projekt.databinding.FragmentPubBinding
-import sk.stuba.fei.i_mobv_projekt.databinding.FragmentPubInfoBinding
+import kotlinx.coroutines.launch
+import sk.stuba.fei.i_mobv_projekt.R
+import sk.stuba.fei.i_mobv_projekt.adapter.MyItemRecyclerViewAdapter
+import sk.stuba.fei.i_mobv_projekt.api.Api
+import sk.stuba.fei.i_mobv_projekt.api.PubRequest
 import sk.stuba.fei.i_mobv_projekt.parser.PubExtension
 import sk.stuba.fei.i_mobv_projekt.placeholder.PlaceholderContent
 
@@ -50,7 +53,12 @@ class ItemFragment : Fragment(), MyItemRecyclerViewAdapter.OnItemClickListener {
                 columnCount <= 1 -> LinearLayoutManager(context)
                 else -> GridLayoutManager(context, columnCount)
             }
-            val json : String = resources.getRawTextFile(R.raw.pubs)
+            var json : String = resources.getRawTextFile(R.raw.pubs)
+            lifecycleScope.launch {
+                json = Api.retrofitService.getJsonString(
+                    PubRequest(database = "mobvapp", dataSource = "Cluster0", collection = "bars")
+                )
+            }
             val data = Gson().fromJson(json, PubExtension::class.java)
             PlaceholderContent.parseData(data)
             adapter = MyItemRecyclerViewAdapter(PlaceholderContent.ITEMS)

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="sk.stuba.fei.i_mobv_projekt.SettingsFragment"
+        android:name="sk.stuba.fei.i_mobv_projekt.fragment.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings">
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentPub"
-        android:name="sk.stuba.fei.i_mobv_projekt.FragmentPub"
+        android:name="sk.stuba.fei.i_mobv_projekt.fragment.FragmentPub"
         android:label="fragment_pub"
         tools:layout="@layout/fragment_pub">
         <argument
@@ -34,7 +34,7 @@
     </fragment>
     <fragment
         android:id="@+id/itemFragment"
-        android:name="sk.stuba.fei.i_mobv_projekt.ItemFragment"
+        android:name="sk.stuba.fei.i_mobv_projekt.fragment.ItemFragment"
         android:label="fragment_item_list"
         tools:layout="@layout/fragment_item_list">
         <action
@@ -46,7 +46,7 @@
     </fragment>
     <fragment
         android:id="@+id/pubInfoFragment"
-        android:name="sk.stuba.fei.i_mobv_projekt.PubInfoFragment"
+        android:name="sk.stuba.fei.i_mobv_projekt.fragment.PubInfoFragment"
         android:label="fragment_pub_info"
         tools:layout="@layout/fragment_pub_info" >
         <argument

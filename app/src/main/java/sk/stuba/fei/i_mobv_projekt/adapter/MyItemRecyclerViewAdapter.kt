@@ -1,15 +1,15 @@
-package sk.stuba.fei.i_mobv_projekt
+package sk.stuba.fei.i_mobv_projekt.adapter
 
 import android.annotation.SuppressLint
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.navigation.findNavController
 
 import sk.stuba.fei.i_mobv_projekt.placeholder.PlaceholderContent.PlaceholderItem
 import sk.stuba.fei.i_mobv_projekt.databinding.FragmentItemBinding
+import sk.stuba.fei.i_mobv_projekt.fragment.ItemFragmentDirections
 
 /**
  * [RecyclerView.Adapter] that can display a [PlaceholderItem].
