@@ -1,4 +1,4 @@
-package sk.stuba.fei.i_mobv_projekt.fragment
+package sk.stuba.fei.i_mobv_projekt.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -12,6 +12,11 @@ class ItemViewModel : ViewModel() {
 
     init {
         // todo
+    }
+
+    fun refresh()
+    {
+
     }
 
 }

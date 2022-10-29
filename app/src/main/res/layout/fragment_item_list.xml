@@ -1,59 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    tools:context=".ItemFragment">
+<layout>
+    <data>
+        <variable
+            name="itemViewModel"
+            type="sk.stuba.fei.i_mobv_projekt.viewmodel.ItemViewModel" />
+    </data>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/button_ascending"
-        style="@style/Widget.MaterialComponents.Button.Icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        app:iconGravity="textStart"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintLeft_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="@string/ascending"
-        android:textAppearance="?attr/textAppearanceListItem" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/button_descending"
-        style="@style/Widget.MaterialComponents.Button.Icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        app:iconGravity="textStart"
-        app:layout_constraintLeft_toRightOf="@id/button_ascending"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="@string/descending"
-        android:textAppearance="?attr/textAppearanceListItem" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/button_add"
-        style="@style/Widget.MaterialComponents.Button.Icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        app:icon="@android:drawable/ic_menu_add"
-        app:iconGravity="textStart"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="@string/add"
-        android:textAppearance="?attr/textAppearanceListItem" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/list"
-        android:name="sk.stuba.fei.i_mobv_projekt.ItemFragment"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        app:layoutManager="LinearLayoutManager"
-        tools:listitem="@layout/fragment_item"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button_descending" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:orientation="horizontal"
+        android:id="@+id/swipeRefreshLayout">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".fragment.ItemFragment">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_ascending"
+            style="@style/Widget.MaterialComponents.Button.Icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            app:iconGravity="textStart"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintLeft_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@string/ascending"
+            android:textAppearance="?attr/textAppearanceListItem" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_descending"
+            style="@style/Widget.MaterialComponents.Button.Icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            app:iconGravity="textStart"
+            app:layout_constraintLeft_toRightOf="@id/button_ascending"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@string/descending"
+            android:textAppearance="?attr/textAppearanceListItem" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_add"
+            style="@style/Widget.MaterialComponents.Button.Icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            app:icon="@android:drawable/ic_menu_add"
+            app:iconGravity="textStart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@string/add"
+            android:textAppearance="?attr/textAppearanceListItem" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/list"
+                android:name="sk.stuba.fei.i_mobv_projekt.ItemFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                app:layoutManager="LinearLayoutManager"
+                tools:listitem="@layout/fragment_item"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/button_descending" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</layout>

@@ -12,7 +12,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.annotation.RawRes
-import androidx.lifecycle.LiveData
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.google.gson.Gson
@@ -21,8 +24,11 @@ import sk.stuba.fei.i_mobv_projekt.R
 import sk.stuba.fei.i_mobv_projekt.adapter.MyItemRecyclerViewAdapter
 import sk.stuba.fei.i_mobv_projekt.api.Api
 import sk.stuba.fei.i_mobv_projekt.api.PubRequest
+import sk.stuba.fei.i_mobv_projekt.databinding.FragmentItemBinding
+import sk.stuba.fei.i_mobv_projekt.databinding.FragmentItemListBinding
 import sk.stuba.fei.i_mobv_projekt.parser.PubExtension
 import sk.stuba.fei.i_mobv_projekt.placeholder.PlaceholderContent
+import sk.stuba.fei.i_mobv_projekt.viewmodel.ItemViewModel
 
 /**
  * A fragment representing a list of Items.
@@ -31,6 +37,8 @@ lateinit var ItemAdapter : MyItemRecyclerViewAdapter
 class ItemFragment : Fragment(), MyItemRecyclerViewAdapter.OnItemClickListener {
 
     private var columnCount = 1
+    private lateinit var binding: FragmentItemListBinding
+    private val viewModel: ItemViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,11 +52,19 @@ class ItemFragment : Fragment(), MyItemRecyclerViewAdapter.OnItemClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_item_list, container, false)
-        val list = view.findViewById<RecyclerView>(R.id.list)
+        //val view = inflater.inflate(R.layout.fragment_item_list, container, false)
+        //val list = view.findViewById<RecyclerView>(R.id.list)
+
+        binding = FragmentItemListBinding.inflate(inflater, container, false)
+        binding.itemViewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            viewModel.refresh()
+            binding.swipeRefreshLayout.isRefreshing = false
+        }
 
         // Set the adapter
-        with(list) {
+        with(binding.list) {
             layoutManager = when {
                 columnCount <= 1 -> LinearLayoutManager(context)
                 else -> GridLayoutManager(context, columnCount)
@@ -66,26 +82,27 @@ class ItemFragment : Fragment(), MyItemRecyclerViewAdapter.OnItemClickListener {
         }
 
         // Add new item
-        val buttonAdd = view.findViewById<Button>(R.id.button_add)
+        val buttonAdd = binding.buttonAdd//view.findViewById<Button>(R.id.button_add)
         buttonAdd.setOnClickListener {
             val fragmentDirections = ItemFragmentDirections.actionItemFragmentToSettingsFragment()
-            view.findNavController().navigate(fragmentDirections)
+            //view.findNavController().navigate(fragmentDirections)
+            binding.root.findNavController().navigate(fragmentDirections)
         }
 
         // Sort ascending
-        val buttonAsc = view.findViewById<Button>(R.id.button_ascending)
+        val buttonAsc = binding.buttonAscending//view.findViewById<Button>(R.id.button_ascending)
         buttonAsc.setOnClickListener {
             ItemAdapter.sort(false)
             ItemAdapter.notifyDataSetChanged()
         }
 
         // Sort descending
-        val buttonDsc = view.findViewById<Button>(R.id.button_descending)
+        val buttonDsc = binding.buttonDescending//view.findViewById<Button>(R.id.button_descending)
         buttonDsc.setOnClickListener {
             ItemAdapter.sort(true)
             ItemAdapter.notifyDataSetChanged()
         }
-        return view
+        return binding.root
     }
 
     fun Resources.getRawTextFile(@RawRes id: Int) =
