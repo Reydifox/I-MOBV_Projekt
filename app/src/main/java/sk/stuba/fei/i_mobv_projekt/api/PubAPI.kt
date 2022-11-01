@@ -4,11 +4,12 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.*
+import sk.stuba.fei.i_mobv_projekt.parser.PubExtension
+import sk.stuba.fei.i_mobv_projekt.parser.PubModel
 
 private const val URL = "https://data.mongodb-api.com/app/data-fswjp/"
 
 private val retrofit = Retrofit.Builder()
-    .addConverterFactory(ScalarsConverterFactory.create())
     .addConverterFactory(GsonConverterFactory.create())
     .baseUrl(URL)
     .build()
@@ -26,7 +27,7 @@ interface ApiServices
     "Access-Control-Rquest-Headers: *",
     "Content-Type: application/json")
     @POST("endpoint/data/v1/action/find")
-    suspend fun getJsonString(@Body request: PubRequest): String
+    suspend fun getJsonString(@Body request: PubRequest): PubExtension
 }
 
 object Api

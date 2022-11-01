@@ -1,22 +1,34 @@
 package sk.stuba.fei.i_mobv_projekt.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.*
+import kotlinx.coroutines.launch
+import sk.stuba.fei.i_mobv_projekt.database.PubDatabase
+import sk.stuba.fei.i_mobv_projekt.fragment.ItemAdapter
+import sk.stuba.fei.i_mobv_projekt.placeholder.PlaceholderContent
+import sk.stuba.fei.i_mobv_projekt.repository.ItemRepository
 
-class ItemViewModel : ViewModel() {
-    private val _data = MutableLiveData("")
-    val data: LiveData<String>
-        get() = _data
+class ItemViewModel(application: Application) : AndroidViewModel(application) {
+    private val repository = ItemRepository(PubDatabase.getDatabase(application))
 
     init {
-        // todo
+        refresh()
     }
 
     fun refresh()
     {
+        viewModelScope.launch {
+            repository.refresh()
+            prepareData()
+        }
+    }
 
+    private fun prepareData()
+    {
+        repository.list.value?.let {
+            PlaceholderContent.parseData(it)
+            ItemAdapter.refresh(PlaceholderContent.ITEMS)
+        }
     }
 
 }

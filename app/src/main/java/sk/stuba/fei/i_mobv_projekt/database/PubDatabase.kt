@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [PubModelDatabase::class], version = 1, exportSchema = false)
+@Database(entities = [PubModelDatabase::class], version = 2, exportSchema = false)
 abstract class PubDatabase : RoomDatabase() {
 
     abstract fun pubDao(): PubDao
@@ -21,7 +21,7 @@ abstract class PubDatabase : RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     PubDatabase::class.java,
-                    "item_database"
+                    "pub_list"
                 )
                     // Wipes and rebuilds instead of migrating if no Migration object.
                     // Migration is not part of this codelab.

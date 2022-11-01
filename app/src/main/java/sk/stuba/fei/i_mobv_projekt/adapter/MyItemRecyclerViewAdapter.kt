@@ -10,6 +10,7 @@ import androidx.navigation.findNavController
 import sk.stuba.fei.i_mobv_projekt.placeholder.PlaceholderContent.PlaceholderItem
 import sk.stuba.fei.i_mobv_projekt.databinding.FragmentItemBinding
 import sk.stuba.fei.i_mobv_projekt.fragment.ItemFragmentDirections
+import sk.stuba.fei.i_mobv_projekt.viewmodel.ItemViewModel
 
 /**
  * [RecyclerView.Adapter] that can display a [PlaceholderItem].
@@ -58,6 +59,12 @@ class MyItemRecyclerViewAdapter(
         }
     }
 
+    fun refresh(_values: MutableList<PlaceholderItem>)
+    {
+        values = _values
+        notifyDataSetChanged()
+    }
+
     fun sort(descending: Boolean)
     {
         if (descending)
@@ -87,7 +94,7 @@ class MyItemRecyclerViewAdapter(
     private fun openDetailsFragment(item : PlaceholderItem)
     {
         val data = item.data
-        val fragmentDirections = ItemFragmentDirections.actionItemFragmentToPubInfoFragment(data.tags.name, data.lat, data.lon, data.tags.website, data.tags.amenity, data.tags.opening_hours, data.tags.phone, data.id)
+        val fragmentDirections = ItemFragmentDirections.actionItemFragmentToPubInfoFragment(data.tags.name.toString(), data.lat, data.lon, data.tags.website, data.tags.amenity, data.tags.opening_hours, data.tags.phone, data.id)
         binding.root.findNavController().navigate(fragmentDirections)
     }
 

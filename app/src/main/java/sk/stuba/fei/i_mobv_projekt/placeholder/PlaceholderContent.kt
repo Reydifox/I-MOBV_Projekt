@@ -55,6 +55,6 @@ object PlaceholderContent {
      * A placeholder item representing a piece of content.
      */
     data class PlaceholderItem(val data: PubModel) {
-        override fun toString(): String = data.tags.name
+        override fun toString(): String = data.tags.name.toString()
     }
 }
