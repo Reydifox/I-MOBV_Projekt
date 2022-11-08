@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
+import sk.stuba.fei.i_mobv_projekt.databinding.FragmentItemListBinding
 import sk.stuba.fei.i_mobv_projekt.databinding.FragmentPubInfoBinding
 
 /**
@@ -27,7 +28,10 @@ class PubInfoFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentPubInfoBinding.inflate(inflater, container, false)
         binding.buttonMap.setOnClickListener { showMap() }
-        binding.buttonDelete.setOnClickListener { deleteItem() }
+        binding.buttonDelete.setOnClickListener {
+            val viewModel = FragmentItemListBinding.inflate(inflater, container, false)
+            deleteItem(viewModel)
+        }
         setText()
         return binding.root
     }
@@ -50,9 +54,10 @@ class PubInfoFragment : Fragment() {
         startActivity(intent)
     }
 
-    private fun deleteItem()
+    private fun deleteItem(viewModel : FragmentItemListBinding)
     {
-        ItemAdapter.removeById(args.itemID)
+        //ItemAdapter.removeById(args.itemID)
+        viewModel.itemViewModel?.deleteByID(args.itemID)
         val fragmentDirections = PubInfoFragmentDirections.actionPubInfoFragmentToItemFragment()
         binding.root.findNavController().navigate(fragmentDirections)
     }

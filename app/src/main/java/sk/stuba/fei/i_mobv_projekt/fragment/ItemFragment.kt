@@ -21,6 +21,7 @@ import androidx.navigation.findNavController
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
 import sk.stuba.fei.i_mobv_projekt.R
+import sk.stuba.fei.i_mobv_projekt.adapter.MyItemListAdapter
 import sk.stuba.fei.i_mobv_projekt.adapter.MyItemRecyclerViewAdapter
 import sk.stuba.fei.i_mobv_projekt.api.Api
 import sk.stuba.fei.i_mobv_projekt.api.PubRequest
@@ -33,7 +34,7 @@ import sk.stuba.fei.i_mobv_projekt.viewmodel.ItemViewModel
 /**
  * A fragment representing a list of Items.
  */
-lateinit var ItemAdapter : MyItemRecyclerViewAdapter
+//lateinit var ItemAdapter : MyItemRecyclerViewAdapter
 class ItemFragment : Fragment(), MyItemRecyclerViewAdapter.OnItemClickListener {
 
     private var columnCount = 1
@@ -55,44 +56,55 @@ class ItemFragment : Fragment(), MyItemRecyclerViewAdapter.OnItemClickListener {
         binding = FragmentItemListBinding.inflate(inflater, container, false)
         binding.itemViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
+        binding.list.adapter = MyItemListAdapter(
+            deleteListener = { position -> viewModel.delete(position) },
+            clickListener = { position ->
+                val data = viewModel.list.value?.elements?.get(position)
+                if(data != null){
+                    val fragmentDirections = ItemFragmentDirections.actionItemFragmentToPubInfoFragment(data.tags.name.toString(), data.lat, data.lon, data.tags.website, data.tags.amenity, data.tags.opening_hours, data.tags.phone, data.id)
+                    binding.root.findNavController().navigate(fragmentDirections)
+                }
+            }
+        )
         binding.swipeRefreshLayout.setOnRefreshListener {
             viewModel.refresh()
             binding.swipeRefreshLayout.isRefreshing = false
         }
 
-        // Set the adapter
-        with(binding.list) {
-            layoutManager = when {
-                columnCount <= 1 -> LinearLayoutManager(context)
-                else -> GridLayoutManager(context, columnCount)
-            }
-            var json : String = resources.getRawTextFile(R.raw.pubs)
-            val data = Gson().fromJson(json, PubExtension::class.java)
-            //PlaceholderContent.parseData(data)
-            adapter = MyItemRecyclerViewAdapter(PlaceholderContent.ITEMS)
-            ItemAdapter = adapter as MyItemRecyclerViewAdapter
-        }
-
-        // Add new item
-        val buttonAdd = binding.buttonAdd
-        buttonAdd.setOnClickListener {
-            val fragmentDirections = ItemFragmentDirections.actionItemFragmentToSettingsFragment()
-            binding.root.findNavController().navigate(fragmentDirections)
-        }
-
-        // Sort ascending
-        val buttonAsc = binding.buttonAscending
-        buttonAsc.setOnClickListener {
-            ItemAdapter.sort(false)
-            ItemAdapter.notifyDataSetChanged()
-        }
-
-        // Sort descending
-        val buttonDsc = binding.buttonDescending
-        buttonDsc.setOnClickListener {
-            ItemAdapter.sort(true)
-            ItemAdapter.notifyDataSetChanged()
-        }
+        binding.list.layoutManager = LinearLayoutManager(binding.root.context)
+//        // Set the adapter
+//        with(binding.list) {
+//            layoutManager = when {
+//                columnCount <= 1 -> LinearLayoutManager(context)
+//                else -> GridLayoutManager(context, columnCount)
+//            }
+//            var json : String = resources.getRawTextFile(R.raw.pubs)
+//            val data = Gson().fromJson(json, PubExtension::class.java)
+//            //PlaceholderContent.parseData(data)
+//            adapter = MyItemRecyclerViewAdapter(PlaceholderContent.ITEMS)
+//            ItemAdapter = adapter as MyItemRecyclerViewAdapter
+//        }
+//
+//        // Add new item
+//        val buttonAdd = binding.buttonAdd
+//        buttonAdd.setOnClickListener {
+//            val fragmentDirections = ItemFragmentDirections.actionItemFragmentToSettingsFragment()
+//            binding.root.findNavController().navigate(fragmentDirections)
+//        }
+//
+//        // Sort ascending
+//        val buttonAsc = binding.buttonAscending
+//        buttonAsc.setOnClickListener {
+//            ItemAdapter.sort(false)
+//            ItemAdapter.notifyDataSetChanged()
+//        }
+//
+//        // Sort descending
+//        val buttonDsc = binding.buttonDescending
+//        buttonDsc.setOnClickListener {
+//            ItemAdapter.sort(true)
+//            ItemAdapter.notifyDataSetChanged()
+//        }
         return binding.root
     }
 

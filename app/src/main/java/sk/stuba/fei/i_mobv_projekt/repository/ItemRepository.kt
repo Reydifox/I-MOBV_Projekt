@@ -35,4 +35,8 @@ class ItemRepository(private val database: PubDatabase) {
             Log.e("ItemRepository", e.message.toString())
         }
     }
+
+    fun delete(position: Int) {
+        list.value?.remove(position)
+    }
 }

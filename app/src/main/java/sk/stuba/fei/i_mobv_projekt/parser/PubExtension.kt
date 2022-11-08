@@ -6,7 +6,11 @@ import sk.stuba.fei.i_mobv_projekt.database.PubModelDatabase
 data class PubExtension (
     @SerializedName("documents")
     val elements : ArrayList<PubModel>
-)
+){
+    fun remove(position : Int){
+        elements.removeAt(position)
+    }
+}
 
 data class PubModel (
     @SerializedName("_id")
