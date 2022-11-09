@@ -79,5 +79,8 @@
         <argument
             android:name="itemID"
             app:argType="string" />
+        <argument
+            android:name="listPosition"
+            app:argType="integer" />
     </fragment>
 </navigation>

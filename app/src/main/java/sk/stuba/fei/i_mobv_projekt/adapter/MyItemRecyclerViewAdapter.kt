@@ -94,7 +94,7 @@ class MyItemRecyclerViewAdapter(
     private fun openDetailsFragment(item : PlaceholderItem)
     {
         val data = item.data
-        val fragmentDirections = ItemFragmentDirections.actionItemFragmentToPubInfoFragment(data.tags.name.toString(), data.lat, data.lon, data.tags.website, data.tags.amenity, data.tags.opening_hours, data.tags.phone, data.id)
+        val fragmentDirections = ItemFragmentDirections.actionItemFragmentToPubInfoFragment(data.tags.name.toString(), data.lat, data.lon, data.tags.website, data.tags.amenity, data.tags.opening_hours, data.tags.phone, data.id, 0)
         binding.root.findNavController().navigate(fragmentDirections)
     }
 

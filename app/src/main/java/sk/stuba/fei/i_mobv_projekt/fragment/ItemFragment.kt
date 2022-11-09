@@ -57,11 +57,10 @@ class ItemFragment : Fragment(), MyItemRecyclerViewAdapter.OnItemClickListener {
         binding.itemViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
         binding.list.adapter = MyItemListAdapter(
-            deleteListener = { position -> viewModel.delete(position) },
             clickListener = { position ->
                 val data = viewModel.list.value?.elements?.get(position)
                 if(data != null){
-                    val fragmentDirections = ItemFragmentDirections.actionItemFragmentToPubInfoFragment(data.tags.name.toString(), data.lat, data.lon, data.tags.website, data.tags.amenity, data.tags.opening_hours, data.tags.phone, data.id)
+                    val fragmentDirections = ItemFragmentDirections.actionItemFragmentToPubInfoFragment(data.tags.name.toString(), data.lat, data.lon, data.tags.website, data.tags.amenity, data.tags.opening_hours, data.tags.phone, data.id, position)
                     binding.root.findNavController().navigate(fragmentDirections)
                 }
             }

@@ -10,7 +10,6 @@ import sk.stuba.fei.i_mobv_projekt.databinding.FragmentItemBinding
 import sk.stuba.fei.i_mobv_projekt.parser.PubModel
 
 class MyItemListAdapter(
-    val deleteListener: (Int) -> Unit,
     val clickListener: (Int) -> Unit
 ) : ListAdapter<PubModel, MyItemListAdapter.ItemViewHolder>(DiffCallback) {
 
@@ -32,8 +31,8 @@ class MyItemListAdapter(
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        val currentPub = getItem(position)
-        holder.bind(currentPub)
+        val item = getItem(position)
+        holder.bind(item)
     }
 
 

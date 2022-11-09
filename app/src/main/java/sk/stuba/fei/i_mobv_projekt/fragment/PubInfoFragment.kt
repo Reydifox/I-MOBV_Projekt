@@ -7,10 +7,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import sk.stuba.fei.i_mobv_projekt.databinding.FragmentItemListBinding
 import sk.stuba.fei.i_mobv_projekt.databinding.FragmentPubInfoBinding
+import sk.stuba.fei.i_mobv_projekt.viewmodel.ItemViewModel
 
 /**
  * A simple [Fragment] subclass.
@@ -20,6 +22,7 @@ import sk.stuba.fei.i_mobv_projekt.databinding.FragmentPubInfoBinding
 class PubInfoFragment : Fragment() {
     private lateinit var binding: FragmentPubInfoBinding
     private val args : PubInfoFragmentArgs by navArgs()
+    private val viewModel : ItemViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,10 +31,7 @@ class PubInfoFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentPubInfoBinding.inflate(inflater, container, false)
         binding.buttonMap.setOnClickListener { showMap() }
-        binding.buttonDelete.setOnClickListener {
-            val viewModel = FragmentItemListBinding.inflate(inflater, container, false)
-            deleteItem(viewModel)
-        }
+        binding.buttonDelete.setOnClickListener { deleteItem() }
         setText()
         return binding.root
     }
@@ -54,10 +54,9 @@ class PubInfoFragment : Fragment() {
         startActivity(intent)
     }
 
-    private fun deleteItem(viewModel : FragmentItemListBinding)
+    private fun deleteItem()
     {
-        //ItemAdapter.removeById(args.itemID)
-        viewModel.itemViewModel?.deleteByID(args.itemID)
+        viewModel.delete(args.listPosition)
         val fragmentDirections = PubInfoFragmentDirections.actionPubInfoFragmentToItemFragment()
         binding.root.findNavController().navigate(fragmentDirections)
     }
