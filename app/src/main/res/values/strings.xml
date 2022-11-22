@@ -1,20 +1,16 @@
 <resources>
-    <string name="app_name">I-MOBV_Projekt</string>
-    <string name="serve">Serve</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="enter_details">Enter details:</string>
-    <string name="enter_drink_name">Enter drink name</string>
-    <string name="enter_pub_name">Enter pub name</string>
-    <string name="enter_latitude">Enter latitude</string>
-    <string name="enter_longitude">Enter longitude</string>
-    <string name="submit">SUBMIT</string>
-    <string name="show_on_map">Show on map</string>
-    <string name="delete">DELETE</string>
-    <string name="add">ADD</string>
-    <string name="ascending">ASC</string>
-    <string name="descending">DSC</string>
-    <string name="contact_info">Contact info:</string>
-    <string name="details">Details:</string>
-    <string name="opening_hours">Opening Hours:</string>
+    <string name="app_name">Kalba finder</string>
+    <string name="prompt_email">Username</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_login">Login</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="action_sign_up">Sign up </string>
+    <string name="login_sign_up">"Sign up failed"</string>
+    <string name="or_log_in">or log in</string>
+    <string name="or_create_account">or create account.</string>
+    <string name="bars">Bars</string>
+    <string name="log_out">Log out</string>
+    <string name="repeat_password">repeat password</string>
+    <string name="back">back</string>
+    <string name="zobrazit_na_mape">Zobrazit na mape</string>
 </resources>
