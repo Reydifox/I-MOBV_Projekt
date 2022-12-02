@@ -2,11 +2,15 @@ package sk.stuba.fei.i_mobv_projekt.data
 
 import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.liveData
+import androidx.navigation.Navigation
 import org.mindrot.jbcrypt.BCrypt
 import sk.stuba.fei.i_mobv_projekt.data.api.*
 import sk.stuba.fei.i_mobv_projekt.data.db.LocalCache
 import sk.stuba.fei.i_mobv_projekt.data.db.model.BarItem
+import sk.stuba.fei.i_mobv_projekt.data.db.model.ContactItem
 import sk.stuba.fei.i_mobv_projekt.helpers.Config
+import sk.stuba.fei.i_mobv_projekt.ui.viewmodels.data.Contact
 import sk.stuba.fei.i_mobv_projekt.ui.viewmodels.data.MyLocation
 import sk.stuba.fei.i_mobv_projekt.ui.viewmodels.data.NearbyBar
 import java.io.IOException
@@ -17,6 +21,7 @@ class DataRepository private constructor(
     private val service: RestApi,
     private val cache: LocalCache
 ){
+    private lateinit var contacts: List<ContactItem>
 
     suspend fun apiUserCreate(
         name: String,
@@ -207,6 +212,82 @@ class DataRepository private constructor(
 
     fun dbBars() : LiveData<List<BarItem>?> {
         return cache.getBars()
+    }
+
+    suspend fun apiContactList(
+        onError: (error: String) -> Unit
+    ) {
+        try {
+            val resp = service.contactList()
+            if (resp.isSuccessful) {
+                resp.body()?.let { _contacts ->
+
+                    contacts = _contacts.map {
+                        ContactItem(
+                            it.user_id,
+                            it.user_name,
+                            it.bar_id,
+                            it.bar_name,
+                            it.time,
+                            it.bar_lat,
+                            it.bar_lon
+                        )
+                    }
+                } ?: onError("Failed to load contacts")
+            } else {
+                onError("Failed to read contacts")
+            }
+        } catch (ex: IOException) {
+            ex.printStackTrace()
+            onError("Failed to load contacts, check internet connection")
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+            onError("Failed to load contacts, error.")
+        }
+    }
+
+    fun dbContacts() : List<ContactItem> {
+        return contacts
+    }
+
+    suspend fun apiContactAdd(
+        contact: Contact,
+        onFinish: (finish: String) -> Unit
+    ) {
+        try {
+            val resp = service.contactAdd(ContactRequest(contact.contact.toString()))
+            if (resp.isSuccessful) {
+                onFinish("${contact.contact} has been successfully added to the friend list")
+            } else {
+                onFinish("Failed to add new contact, try again later.")
+            }
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+            onFinish("Contact add in failed, error.")
+        }
+    }
+
+    suspend fun apiContactDelete(
+        contact: Contact,
+        onError: (error: String) -> Unit,
+        onSuccess: (success: Boolean) -> Unit
+    ) {
+        try {
+            val resp = service.contactDelete(ContactRequest(contact.contact.toString()))
+            if (resp.isSuccessful) {
+                resp.body()?.let { user ->
+                    onSuccess(true)
+                }
+            } else {
+                onError("Failed to delete existing contact, try again later.")
+            }
+        } catch (ex: IOException) {
+            ex.printStackTrace()
+            onError("Contact delete failed, check internet connection")
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+            onError("Contact delete in failed, error.")
+        }
     }
 
     companion object{

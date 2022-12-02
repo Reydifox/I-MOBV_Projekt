@@ -6,6 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import sk.stuba.fei.i_mobv_projekt.data.db.model.BarItem
+import sk.stuba.fei.i_mobv_projekt.data.db.model.ContactItem
 
 @Dao
 interface DbDao {

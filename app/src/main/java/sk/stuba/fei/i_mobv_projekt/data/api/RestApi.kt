@@ -38,6 +38,18 @@ interface RestApi {
     @Headers("mobv-auth: accept")
     suspend fun barMessage(@Body bar: BarMessageRequest) : Response<Any>
 
+    @POST("contact/message.php")
+    @Headers("mobv-auth: accept")
+    suspend fun contactAdd(@Body contact: ContactRequest) : Response<Void>
+
+    @POST("contact/delete.php")
+    @Headers("mobv-auth: accept")
+    suspend fun contactDelete(@Body contact: ContactRequest) : Response<Any>
+
+    @GET("contact/list.php")
+    @Headers("mobv-auth: accept")
+    suspend fun contactList() : Response<List<ContactListResponse>>
+
     companion object{
         const val BASE_URL = "https://zadanie.mpage.sk/"
 

@@ -26,9 +26,8 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Bar Name" />
 
-        <TextView
+        <Button
             android:id="@+id/back"
-            style="@style/TextAppearance.Material3.BodyMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
@@ -49,7 +48,7 @@
             android:id="@+id/mapButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/zobrazit_na_mape"
+            android:text="@string/show_on_map"
             android:visibility="@{model.loading ? View.INVISIBLE : View.VISIBLE}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/type" />

@@ -47,4 +47,18 @@
     <action
         android:id="@+id/action_to_detail"
         app:destination="@id/detail_fragment" />
+    <fragment
+        android:id="@+id/contactListFragment"
+        android:name="sk.stuba.fei.i_mobv_projekt.ui.fragments.ContactListFragment"
+        android:label="ContactListFragment" />
+    <fragment
+        android:id="@+id/contactAddFragment"
+        android:name="sk.stuba.fei.i_mobv_projekt.ui.fragments.ContactAddFragment"
+        android:label="ContactAddFragment" />
+    <action
+        android:id="@+id/action_to_contacts"
+        app:destination="@id/contactListFragment" />
+    <action
+        android:id="@+id/action_to_contact_add"
+        app:destination="@id/contactAddFragment" />
 </navigation>

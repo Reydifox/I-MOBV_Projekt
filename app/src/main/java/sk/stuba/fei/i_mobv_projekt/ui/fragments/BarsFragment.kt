@@ -94,6 +94,10 @@ class BarsFragment : Fragment() {
                     )
                 }
             }
+
+            bnd.findContact.setOnClickListener {
+                Navigation.findNavController(it).navigate(R.id.action_to_contacts)
+            }
         }
 
         viewmodel.loading.observe(viewLifecycleOwner) {

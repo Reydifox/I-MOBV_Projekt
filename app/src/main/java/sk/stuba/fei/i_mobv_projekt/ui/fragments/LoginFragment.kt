@@ -1,5 +1,6 @@
 package sk.stuba.fei.i_mobv_projekt.ui.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import sk.stuba.fei.i_mobv_projekt.R
+import sk.stuba.fei.i_mobv_projekt.databinding.FragmentBarsBinding
 import sk.stuba.fei.i_mobv_projekt.databinding.FragmentLoginBinding
 import sk.stuba.fei.i_mobv_projekt.helpers.Injection
 import sk.stuba.fei.i_mobv_projekt.helpers.PreferenceData
