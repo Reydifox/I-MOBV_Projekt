@@ -95,6 +95,7 @@ class LocateFragment : Fragment() {
 
             bnd.checkme.setOnClickListener {
                 if (checkBackgroundPermissions()) {
+                    bnd.checkme.playAnimation()
                     viewmodel.checkMe()
                 } else {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {

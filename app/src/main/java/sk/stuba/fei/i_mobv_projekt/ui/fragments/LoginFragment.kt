@@ -1,5 +1,6 @@
 package sk.stuba.fei.i_mobv_projekt.ui.fragments
 
+import android.animation.Animator
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -52,6 +53,20 @@ class LoginFragment : Fragment() {
             model = authViewModel
         }
 
+        binding.welcome.addAnimatorListener(object: Animator.AnimatorListener {
+            override fun onAnimationRepeat(animation: Animator?) { }
+
+            override fun onAnimationEnd(animation: Animator?) {
+                Navigation.findNavController(requireView()).navigate(R.id.action_to_bars)
+            }
+
+            override fun onAnimationCancel(animation: Animator?) {
+                Navigation.findNavController(requireView()).navigate(R.id.action_to_bars)
+            }
+
+            override fun onAnimationStart(animation: Animator?) {}
+        })
+
         binding.login.setOnClickListener {
             if (binding.username.text.toString().isNotBlank() && binding.password.text.toString().isNotBlank()) {
                 authViewModel.login(
@@ -70,7 +85,8 @@ class LoginFragment : Fragment() {
         authViewModel.user.observe(viewLifecycleOwner){
             it?.let {
                 PreferenceData.getInstance().putUserItem(requireContext(), it)
-                Navigation.findNavController(requireView()).navigate(R.id.action_to_bars)
+                binding.welcome.visibility = View.VISIBLE
+                binding.welcome.playAnimation()
             }
         }
     }
