@@ -78,6 +78,12 @@ class BarsFragment : Fragment() {
                 Navigation.findNavController(it).navigate(R.id.action_to_login)
             }
 
+            bnd.sortByName.setOnClickListener { viewmodel.sortByName() }
+
+            bnd.sortByCount.setOnClickListener { viewmodel.sortByCount() }
+
+            bnd.sortByDistance.setOnClickListener { println("DISTANCE") }
+
             bnd.swiperefresh.setOnRefreshListener {
                 viewmodel.refreshData()
             }

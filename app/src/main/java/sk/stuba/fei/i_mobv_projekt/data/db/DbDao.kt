@@ -17,5 +17,8 @@ interface DbDao {
     suspend fun deleteBars()
 
     @Query("SELECT * FROM bars order by users DESC, name ASC")
-    fun getBars(): LiveData<List<BarItem>?>
+    fun getBarsByCount(): LiveData<List<BarItem>?>
+
+    @Query("SELECT * FROM bars order by name ASC, users DESC")
+    fun getBarsByName(): LiveData<List<BarItem>?>
 }

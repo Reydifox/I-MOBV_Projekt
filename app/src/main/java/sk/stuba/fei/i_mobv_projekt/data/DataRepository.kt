@@ -210,8 +210,12 @@ class DataRepository private constructor(
         return nearby
     }
 
-    fun dbBars() : LiveData<List<BarItem>?> {
-        return cache.getBars()
+    fun dbBarsByName() : LiveData<List<BarItem>?> {
+        return cache.getBarsByName()
+    }
+
+    fun dbBarsByCount() : LiveData<List<BarItem>?> {
+        return cache.getBarsByCount()
     }
 
     suspend fun apiContactList(

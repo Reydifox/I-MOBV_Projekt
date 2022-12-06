@@ -13,13 +13,18 @@ class BarsViewModel(private val repository: DataRepository): ViewModel() {
 
     val loading = MutableLiveData(false)
 
-    val bars: LiveData<List<BarItem>?> =
-        liveData {
-            loading.postValue(true)
-            repository.apiBarList { _message.postValue(Evento(it)) }
-            loading.postValue(false)
-            emitSource(repository.dbBars())
+    val bars = MediatorLiveData<List<BarItem>?>()
+    private val barsByName = repository.dbBarsByName()
+    private val barsByCount = repository.dbBarsByCount()
+
+    init {
+        bars.addSource(barsByCount) { result ->
+            result.let { bars.value = it }
         }
+        bars.addSource(barsByName) { result ->
+            result.let { bars.value = it }
+        }
+    }
 
     fun refreshData(){
         viewModelScope.launch {
@@ -27,6 +32,14 @@ class BarsViewModel(private val repository: DataRepository): ViewModel() {
             repository.apiBarList { _message.postValue(Evento(it)) }
             loading.postValue(false)
         }
+    }
+
+    fun sortByName() {
+        barsByName.value?.let { bars.value = it }
+    }
+
+    fun sortByCount() {
+        barsByCount.value?.let { bars.value = it }
     }
 
     fun show(msg: String){ _message.postValue(Evento(msg))}

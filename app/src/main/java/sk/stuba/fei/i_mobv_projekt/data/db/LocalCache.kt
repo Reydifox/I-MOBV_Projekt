@@ -11,5 +11,6 @@ class LocalCache(private val dao: DbDao) {
 
     suspend fun deleteBars(){ dao.deleteBars() }
 
-    fun getBars(): LiveData<List<BarItem>?> = dao.getBars()
+    fun getBarsByName(): LiveData<List<BarItem>?> = dao.getBarsByName()
+    fun getBarsByCount(): LiveData<List<BarItem>?> = dao.getBarsByCount()
 }

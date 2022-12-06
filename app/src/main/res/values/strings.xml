@@ -20,4 +20,8 @@
     <string name="friend_list">Friend list</string>
     <string name="add">ADD</string>
     <string name="add_new_friend">Add new friend</string>
+    <string name="sort_by">Sort by:</string>
+    <string name="name">Name</string>
+    <string name="count">Count</string>
+    <string name="distance">Distance</string>
 </resources>
