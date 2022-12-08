@@ -18,10 +18,10 @@ class BarsViewModel(private val repository: DataRepository): ViewModel() {
     private val barsByCount = repository.dbBarsByCount()
 
     init {
-        bars.addSource(barsByCount) { result ->
+        bars.addSource(barsByName) { result ->
             result.let { bars.value = it }
         }
-        bars.addSource(barsByName) { result ->
+        bars.addSource(barsByCount) { result ->
             result.let { bars.value = it }
         }
     }
